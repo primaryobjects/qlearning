@@ -1,0 +1,8 @@
+{
+  "name": "q-learning example",
+  "version": "0.0.1",
+  "description": "An example game running Q-Learning artificial intelligence.",
+  "dependencies": {
+    "readline-sync": "^1.4.7"
+  }
+}
