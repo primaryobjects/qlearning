@@ -3,6 +3,10 @@ Q-Learning
 
 A simple game implementing [Q-learning](https://en.wikipedia.org/wiki/Q-learning) artificial intelligence.
 
+## What is Q-Learning?
+
+Q-Learning is a reinforcement learning technique, used in artificial intelligence. Q-learning allows you to find an optimal action for a given particular state.
+
 #### AI with no training
 
 ![Controlling the player with an untrained AI](images/qlearning-1.gif)
@@ -11,13 +15,9 @@ In the above screenshot, the AI controlling the player has not yet been trained.
 
 #### AI with 1,000 points of training
 
-![Controlling the player with an AI after 1,000 points of training](images/qlearning-1.gif)
+![Controlling the player with an AI after 1,000 points of training](images/qlearning-2.gif)
 
 In the above screenshot, the AI has been trained with q-learning for 1,000 points of training. Notice the difference in the intelligence of the player movements. The AI has learned to move the player in the direction of the gold, optimally scoring points in each round.
-
-## What is Q-Learning?
-
-Q-Learning is a reinforcement learning technique, used in artificial intelligence. Q-learning allows you to find an optimal action for a given particular state.
 
 ## The Game
 
