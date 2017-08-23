@@ -7,16 +7,16 @@ var Controller = require('../controllers/controller');
 // Q-Learning.
 //
 class QController extends Controller {
-  constructor(game, speed) {
+  constructor(game, speed, learningRate = 0.4, discount = 0.7, randomThreshold = 0.9, trainingScore = 10000) {
     super(game);
 
     this.speed = speed;
     this.actions = [ Constants.direction.RIGHT, Constants.direction.LEFT ];
 
-    this.learningRate = 0.4; // Q-learning parameter.
-    this.discount = 0.7; // Q-learning parameter.
-    this.epsilon = 0.9; // A random value must exceed this threshold to pick a random move instead of learned move.
-    this.trainingScore = 200000; // Slow the game down for viewing, once the score reaches this value.
+    this.learningRate = learningRate; // Q-learning parameter.
+    this.discount = discount; // Q-learning parameter.
+    this.epsilon = randomThreshold; // A random value must exceed this threshold to pick a random move instead of learned move.
+    this.trainingScore = trainingScore; // Slow the game down for viewing, once the score reaches this value.
 
     this.table = [];
   }
@@ -24,7 +24,6 @@ class QController extends Controller {
   initialize() {
     // Initialize Q Table states with random values. A state consists of the player position and treasure position.
     var table = [];
-    var treasure = this.game.treasure();
 
     for (var y=0; y<this.game.height; y++) {
       for (var x=0; x<this.game.width; x++) {
@@ -33,8 +32,8 @@ class QController extends Controller {
             var state = 'x=' + x + ',y=' + y + ',tx=' + tx + ',ty=' + ty;
             table[state] = {};
 
+            // Initialize each action to a random value for this state.
             for (var a=0; a<this.actions.length; a++) {
-              // Initialize each action to a random value for this state.
               table[state][this.actions[a]] = Math.random();
             }
           }
@@ -76,11 +75,6 @@ class QController extends Controller {
       this.table = this.initialize();
     }
 
-    /*   
-    @q_table[@old_state][@action_taken_index] = @q_table[@old_state][@action_taken_index] + @learning_rate * 
-      (r + @discount * @q_table[@outcome_state].max - @q_table[@old_state][@action_taken_index])
-    */
-
     // Choose action based on Q value for state.
     if (Math.random() > this.epsilon) {
       // Select a random action.
@@ -95,6 +89,8 @@ class QController extends Controller {
     // Capture current state.
     this.last = { x: player.x, y: player.y, tx: treasure.x, ty: treasure.y, score: this.game.score, action: this.action }
 
+    // While training, allow random moves for discovery of states. After training completes, use optimal moves and slow the game speed.
+    this.epsilon = this.game.score === this.trainingScore ? 2 : this.epsilon;
     for (var i=0; i<((this.game.score > this.trainingScore) ? this.speed : 0); i++) { }
 
     return this.action;
