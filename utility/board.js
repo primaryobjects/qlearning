@@ -4,6 +4,7 @@ class Board {
   constructor(width=Constants.width, height=Constants.height) {
     this.width = width;
     this.height = height;
+    this.score = 0;
     this.objects = [];
   }
 
@@ -17,9 +18,18 @@ class Board {
     }
   }
 
+  findByType(type) {
+    return this.objects.filter(obj => { return obj.type === type });
+  }
+
   player() {
-    var player = this.objects.filter(obj => { return obj.type === Constants.type.PLAYER });
+    var player = this.findByType(Constants.type.PLAYER);
     return player.length ? player[0] : null;
+  }
+
+  treasure() {
+    var treasure = this.findByType(Constants.type.TREASURE);
+    return treasure.length ? treasure[0] : null;
   }
 
   update() {
