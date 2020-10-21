@@ -8,6 +8,7 @@ var KeyboardController = require('./controllers/keyboardController');
 var OneDirectionController = require('./controllers/oneDirectionController');
 var SmartController = require('./controllers/smartController');
 var QController = require('./controllers/qController');
+var readline = require('readline');
 
 // Create characters.
 var status = '';
@@ -15,7 +16,7 @@ var status = '';
 var hotdog = new Hotdog();
 var gold = new Gold();
 var game = new Board();
-var controller = new QController(game, 199999999);
+var controller = new QController(game, 49999999);
 
 var player = new Player(Math.round(Constants.width / 2), 0,
   (object, points) => {
@@ -35,7 +36,7 @@ game.add(player);
 game.add(gold);
 
 var render = function(game, status = '') {
-  process.stdout.clearLine();
+  readline.cursorTo(process.stdout, 0);
   process.stdout.write(game.toString() + ' | Score: ' + game.score + ' | ' + status + '\r');
 }
 
@@ -44,7 +45,7 @@ var positionObject = function(object, min = 0, max = game.width) {
   object.x = Common.random(min, max);
   while (object.x === player.x) {
     object.x = Common.random(min, max);
-  }  
+  }
 }
 
 // Set object positions.
