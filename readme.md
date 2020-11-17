@@ -79,7 +79,7 @@ Several simple controllers exist to allow manually controlling the player or all
 - [OneDirectionController](controllers/oneDirectionController.js)
   A "dumb" AI controller that simply always moves the player left or right until a wall is hit, regardless of where the enemy or gold are positioned.
 - [SmartController](controllers/smartController.js)
-  An optimal AI controller that moves left if the gold is left of the player and right if the old is right of the player.
+  An optimal AI controller that moves left if the gold is left of the player and right if the gold is right of the player.
 - [QController](controllers/qController.js)
   A q-learning AI controller that learns which moves to make according to the current state of the game. This controller effectively learns to behave in the same manner as the SmartController, which is the optimal scenario.
 
